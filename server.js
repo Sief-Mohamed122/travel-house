@@ -24,17 +24,20 @@ const server = http.createServer((req, res) => {
   const filePath = path.normalize(path.join(ROOT, urlPath));
   if (!filePath.startsWith(ROOT)) { res.writeHead(403); return res.end('Forbidden'); }
 
-  fs.stat(filePath, (err, stat) => {
-    if (err || !stat.isFile()) {
-      // try with .html appended (e.g. /ar/tours -> /ar/tours.html) without redirect
-      const withHtml = filePath + '.html';
-      return fs.stat(withHtml, (e2, s2) => {
-        if (e2 || !s2.isFile()) { res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' }); return res.end('404 Not Found'); }
-        send(withHtml, res);
-      });
+  const trySend = (candidates) => {
+    if (candidates.length === 0) {
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+      return res.end('404 Not Found');
     }
-    send(filePath, res);
-  });
+    const [c, ...rest] = candidates;
+    fs.stat(c, (e, st) => {
+      if (e || !st.isFile()) return trySend(rest);
+      send(c, res);
+    });
+  };
+
+  // resolve: exact -> +'.html' -> +'/index.html' (handles clean/dir URLs like /ar or /ar/tours)
+  trySend([filePath, filePath + '.html', filePath + '/index.html']);
 });
 
 function send(p, res) {
