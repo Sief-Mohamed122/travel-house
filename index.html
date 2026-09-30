@@ -7,6 +7,7 @@
 <meta name="description" content="Travel House — unforgettable international tours & honeymoons. Curated journeys to the world's most beautiful destinations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/hero-motion.css">
 </head>
 <body>
 
@@ -44,43 +45,72 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero hero--motion">
   <div class="hero__bg">
-    <img src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/peru.webp" alt="Peru mountains">
+    <div class="hero__slide is-active"><img src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/peru.webp" alt="Peru mountains" fetchpriority="high"></div>
+    <div class="hero__slide"><img data-src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/Things-to-do-in-Tbilisi-Georgia-13.webp" alt=""></div>
+    <div class="hero__slide"><img data-src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/c3c3a645-f690-4e11-a5fc-249297b181e0.webp" alt=""></div>
+    <div class="hero__slide"><img data-src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/photo.webp" alt=""></div>
   </div>
-  <div class="hero__glow"></div>
+  <div class="hero__glow" data-depth="-24"></div>
   <div class="container">
     <div class="hero__inner">
       <div class="hero__content">
-        <span class="hero__eyebrow reveal">International Tours &amp; Honeymoons</span>
-        <h1 class="reveal d1">Discover the <span class="italic">World</span> With Us</h1>
-        <p class="hero__sub reveal d2">Unforgettable journeys to the most beautiful destinations — crafted with heart, guided by experts, remembered for a lifetime.</p>
-        <div class="hero__actions reveal d3">
-          <a class="btn btn-accent" href="tours.html">Explore Tours
+        <span class="hero__eyebrow hm-in hm-1">International Tours &amp; Honeymoons</span>
+        <h1 class="hero__title">
+          <span class="sr-only">Discover the World With Us</span>
+          <span aria-hidden="true">
+            <span class="line-mask"><span>Discover</span></span>
+            <span class="line-mask"><span class="hero__word">
+              <span class="italic is-active">the World</span>
+              <span class="italic">Georgia</span>
+              <span class="italic">Armenia</span>
+              <span class="italic">Antalya</span>
+            </span></span>
+            <span class="line-mask"><span>With Us</span></span>
+          </span>
+        </h1>
+        <p class="hero__sub hm-in hm-4">Unforgettable journeys to the most beautiful destinations — crafted with heart, guided by experts, remembered for a lifetime.</p>
+        <div class="hero__actions hm-in hm-5">
+          <a class="btn btn-accent btn-shine" href="tours.html">Explore Tours
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-light" href="contact.html">Plan My Trip</a>
         </div>
-        <div class="hero__stats reveal d4">
+        <div class="hero__stats hm-in hm-6" data-count-delay="1300">
           <div class="hero__stat"><div class="num" data-count="22">0</div><div class="lbl">Countries Explored</div></div>
           <div class="hero__stat"><div class="num" data-count="60">0</div><div class="lbl">Trips Organized</div></div>
           <div class="hero__stat"><div class="num" data-count="15">0</div><div class="lbl">Years Experience</div></div>
         </div>
       </div>
 
-      <div class="hero__collage reveal d2">
-        <div class="float-card fc1">
+      <div class="hero__collage">
+        <div class="float-card fc1" data-dest="1" data-depth="18">
           <img src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/georgia1.webp" alt="Georgia">
           <span class="tag">Georgia · from $775</span>
         </div>
-        <div class="float-card fc2">
+        <div class="float-card fc2" data-dest="2" data-depth="34">
           <img src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/maxresdefault.webp" alt="Armenia">
           <span class="tag">Armenia · from $790</span>
         </div>
-        <div class="float-card fc3">
+        <div class="float-card fc3" data-dest="3" data-depth="48">
           <img src="https://jbuxpbqufwplotiposjd.storage.supabase.co/storage/v1/object/public/Media/vvf.webp" alt="Antalya">
           <span class="tag">Antalya · from $1038</span>
         </div>
-        <div class="fc-badge">
+        <svg class="hero__flight" viewBox="0 0 540 520" aria-hidden="true" data-depth="26">
+          <defs>
+            <mask id="flightMask" maskUnits="userSpaceOnUse" x="-100" y="-100" width="760" height="720">
+              <path class="hero__flight-reveal" pathLength="1" d="M40,470 C0,330 90,200 190,215 C300,232 280,70 400,40 C520,10 560,220 430,300 C360,345 300,380 330,500"/>
+            </mask>
+          </defs>
+          <path id="flightPath" class="hero__flight-line" mask="url(#flightMask)" d="M40,470 C0,330 90,200 190,215 C300,232 280,70 400,40 C520,10 560,220 430,300 C360,345 300,380 330,500"/>
+          <g class="hero__plane">
+            <path d="M11,-2 L-4,-2 L-9,-9 L-12,-9 L-9,-2 L-14,-2 L-16,-5 L-18,-5 L-17,0 L-18,5 L-16,5 L-14,2 L-9,2 L-12,9 L-9,9 L-4,2 L11,2 Q16,0 11,-2 Z"/>
+            <animateMotion dur="7s" begin="indefinite" repeatCount="indefinite" rotate="auto" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines=".45 0 .55 1">
+              <mpath href="#flightPath"/>
+            </animateMotion>
+          </g>
+        </svg>
+        <div class="fc-badge" data-depth="58">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
           <div class="t"><b>4.9 / 5</b>Rated by happy travelers</div>
         </div>
@@ -391,5 +421,6 @@
 </footer>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/hero-motion.js"></script>
 </body>
 </html>
