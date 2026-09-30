@@ -61,7 +61,14 @@
   if ('IntersectionObserver' in window && counters.length) {
     const co = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) { runCounter(e.target); co.unobserve(e.target); }
+        if (e.isIntersecting) {
+          // optional data-count-delay on an ancestor holds the count until an intro animation reveals it
+          const holder = e.target.closest('[data-count-delay]');
+          const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const delay = holder && !reduced ? +holder.getAttribute('data-count-delay') : 0;
+          setTimeout(() => runCounter(e.target), delay);
+          co.unobserve(e.target);
+        }
       });
     }, { threshold: 0.6 });
     counters.forEach((c) => co.observe(c));

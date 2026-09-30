@@ -1,0 +1,91 @@
+/* =========================================================
+   TRAVEL HOUSE — Homepage hero motion (English homepage only)
+   Everything is scoped to .hero--motion. Base styles are the
+   final, visible state; intro keyframes only describe the "from"
+   side, so the hero stays readable without JS or with
+   prefers-reduced-motion (style.css disables all animations).
+   ========================================================= */
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.hero--motion{background:#0b2126}
+
+/* ---------- Background: blur-in + crossfading Ken Burns slides ---------- */
+.hero--motion .hero__bg{animation:hmBgIn 1.8s var(--ease) both}
+.hero--motion .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;z-index:0}
+.hero--motion .hero__slide.is-leaving{opacity:1;z-index:0}
+.hero--motion .hero__slide.is-active{opacity:1;z-index:1}
+.hero--motion .hero__slide img{animation:none;transform:scale(1.06)}
+.hero--motion .hero__slide.is-active img,
+.hero--motion .hero__slide.is-leaving img{animation:hmKen 9s ease-out both}
+.hero--motion .hero__bg::after{z-index:2}
+.hero--motion .hero__glow{transition:translate 1s cubic-bezier(.2,.7,.2,1)}
+
+/* ---------- Copy ---------- */
+.hero--motion .hm-in{animation:hmUp 1s var(--ease) both}
+.hero--motion .hm-1{animation-delay:.15s}
+.hero--motion .hm-4{animation-delay:.95s}
+.hero--motion .hm-5{animation-delay:1.1s}
+.hero--motion .hm-6{animation-delay:1.25s}
+.hero--motion .hero__eyebrow::before{animation:hmLine .9s var(--ease) .1s both}
+
+/* masked line-by-line headline */
+.hero--motion .line-mask{padding:0 .12em .1em 0;margin-bottom:-.1em}
+.hero--motion .line-mask>span{animation:hmRise 1.1s var(--ease) both;animation-delay:.35s}
+.hero--motion .line-mask:nth-child(2)>span{animation-delay:.47s}
+.hero--motion .line-mask:nth-child(3)>span{animation-delay:.59s}
+
+/* rotating destination word — all words share one grid cell so width never jumps */
+.hero--motion .hero__word{display:inline-grid;vertical-align:top}
+.hero--motion .hero__word>span{grid-area:1/1;opacity:0;transform:translateY(100%);
+  transition:transform .9s var(--ease),opacity .9s var(--ease)}
+.hero--motion .hero__word>span.is-active{opacity:1;transform:none}
+.hero--motion .hero__word>span.is-leaving{opacity:0;transform:translateY(-100%)}
+
+/* button shine sweep */
+.hero--motion .btn-shine{position:relative;overflow:hidden;isolation:isolate}
+.hero--motion .btn-shine::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);
+  translate:-120% 0;animation:hmShine 5s ease-in-out 2.4s infinite}
+
+/* ---------- Collage: wipe-in cards, active highlight, parallax ---------- */
+.hero--motion .float-card{
+  transition:translate 1s cubic-bezier(.2,.7,.2,1),scale .8s var(--ease),border-color .8s var(--ease),box-shadow .8s var(--ease),filter .8s var(--ease)}
+/* backwards fill: clip-path is dropped after the intro so box-shadows aren't clipped */
+.hero--motion .fc1{animation:hmCard 1.2s var(--ease) 1s backwards,floaty 7s ease-in-out 2.2s infinite}
+.hero--motion .fc2{animation:hmCard 1.2s var(--ease) 1.15s backwards,floaty 9s ease-in-out 2.35s infinite reverse}
+.hero--motion .fc3{animation:hmCard 1.2s var(--ease) 1.3s backwards,floaty 8s ease-in-out 2.5s infinite}
+.hero--motion .float-card img{animation:hmCardImg 1.6s var(--ease) 1s backwards}
+.hero--motion .fc2 img{animation-delay:1.15s}
+.hero--motion .fc3 img{animation-delay:1.3s}
+.hero--motion .float-card .tag{transition:background .6s var(--ease),color .6s var(--ease)}
+
+.hero--motion .float-card.is-active{z-index:2;scale:1.05;border-color:var(--accent);
+  box-shadow:var(--shadow-lg),0 0 0 6px rgba(224,164,88,.3)}
+.hero--motion .float-card.is-active .tag{background:var(--accent);color:#3a260e}
+.hero--motion .hero__collage.has-active .float-card:not(.is-active){filter:saturate(.75) brightness(.82)}
+
+.hero--motion .fc-badge{z-index:4;transition:translate 1s cubic-bezier(.2,.7,.2,1);
+  animation:hmPop .9s cubic-bezier(.34,1.56,.64,1) 1.7s backwards,floaty 6s ease-in-out 2.6s infinite}
+
+/* ---------- Flight path + plane ---------- */
+.hero__flight{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:3;
+  transition:translate 1s cubic-bezier(.2,.7,.2,1)}
+.hero__flight-line{fill:none;stroke:rgba(255,255,255,.85);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1 11;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.hero__flight-reveal{fill:none;stroke:#fff;stroke-width:14;stroke-dasharray:1;stroke-dashoffset:0;
+  animation:hmDraw 2.2s var(--ease) 1.5s both}
+.hero__plane{fill:#fff;opacity:0;transition:opacity .6s ease;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+.hero__flight.is-flying .hero__plane{opacity:1}
+
+/* ---------- Keyframes ---------- */
+@keyframes hmBgIn{from{opacity:0;filter:blur(14px);transform:scale(1.12)}to{opacity:1;filter:none;transform:none}}
+@keyframes hmKen{from{transform:scale(1.04)}to{transform:scale(1.16)}}
+@keyframes hmUp{from{opacity:0;translate:0 28px}}
+@keyframes hmLine{from{width:0}}
+@keyframes hmRise{from{transform:translateY(110%)}}
+@keyframes hmShine{0%{translate:-120% 0}35%,100%{translate:120% 0}}
+@keyframes hmCard{from{clip-path:inset(100% 0 0 0 round var(--radius));rotate:-4deg}to{clip-path:inset(0 0 0 0 round var(--radius));rotate:0deg}}
+@keyframes hmCardImg{from{transform:scale(1.3)}}
+@keyframes hmPop{from{opacity:0;scale:.5}}
+@keyframes hmDraw{from{stroke-dashoffset:1}}
